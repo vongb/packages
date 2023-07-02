@@ -1,0 +1,34 @@
+{
+  "name": "demo-is-even",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/demo-is-even/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/demo-is-even",
+        "main": "packages/demo-is-even/src/index.ts",
+        "tsConfig": "packages/demo-is-even/tsconfig.lib.json",
+        "assets": ["packages/demo-is-even/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/demo-is-even/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/vite:test",
+      "outputs": ["coverage/packages/demo-is-even"],
+      "options": {
+        "passWithNoTests": true,
+        "reportsDirectory": "../../coverage/packages/demo-is-even"
+      }
+    }
+  },
+  "tags": []
+}
