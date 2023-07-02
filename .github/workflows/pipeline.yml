@@ -8,4 +8,4 @@ jobs:
         with:
           node-version: '18'
       - run: yarn
-      - run: nx show --projects --affected
+      - run: yarn nx show --projects --affected
