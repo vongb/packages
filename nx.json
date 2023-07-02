@@ -28,5 +28,8 @@
     "@nx/js": {
       "analyzeSourceFiles": true
     }
+  },
+  "affected": {
+    "defaultBase": "master"
   }
 }
