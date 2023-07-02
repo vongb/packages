@@ -1,1 +1,1 @@
-export * from './lib/demo-is-even';
+export * from './lib/isEven';
