@@ -20,8 +20,13 @@
     "inputs": ["default", "^default"]
   },
   "targetDefaults": {
-    "test": {
-      "inputs": ["default", "^default"]
+    "build": {
+      "dependsOn": ["^build"]
+    }
+  },
+  "pluginsConfig": {
+    "@nx/js": {
+      "analyzeSourceFiles": true
     }
   }
 }
