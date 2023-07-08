@@ -25,5 +25,5 @@ done
 JSON="${JSON%,}]}"
 echo $JSON
 
-echo "matrix=$JSON" >> $GITHUB_OUTPUT
+echo "affected=$JSON" >> $GITHUB_OUTPUT
 echo "$JSON" >> $GITHUB_STEP_SUMMARY

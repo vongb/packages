@@ -1,24 +1,25 @@
 name: pipeline
 on: [push]
 jobs:
-  matrix:
+  affected:
     runs-on: ubuntu-latest
     outputs:
-      matrix: ${{ steps.set-matrix.outputs.matrix }}
+      affected: ${{ steps.affected.outputs.affected }}
     steps:
       - uses: actions/checkout@v3
       - run: yarn
       - name: Output affected projects
-        id: set-matrix
+        id: affected
         run: ./.github/scripts/output-nx-affected.sh
         shell: bash
 
   lint-and-test:
-    needs: matrix
-    if: ${{ needs.matrix.outputs.matrix != '{"project":\ []}' }}
+    needs: affected
+    if: ${{ needs.affected.outputs.affected != '[]' && needs.affected.outputs.affected != '' }}
     runs-on: ubuntu-latest
     strategy:
-      matrix: ${{ fromJson(needs.matrix.outputs.matrix) }}
+      matrix: 
+        project: ${{ fromJson(needs.affected.outputs.affected) }}
     steps:
       - uses: actions/checkout@v3
       - run: yarn
