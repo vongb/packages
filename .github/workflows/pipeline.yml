@@ -19,6 +19,7 @@ jobs:
     if: ${{ needs.affected.outputs.affected != '[]' }}
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         project: ${{ fromJson(needs.affected.outputs.affected) }}
     steps:

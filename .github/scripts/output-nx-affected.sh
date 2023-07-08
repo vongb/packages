@@ -27,4 +27,4 @@ done
 JSON="${JSON%,}]"
 
 echo "affected=$JSON" >> $GITHUB_OUTPUT
-echo "GITHUB_REF_NAME: $GITHUB_REF" >> $GITHUB_STEP_SUMMARY
+echo "BASE: $BASE affected: $JSON" >> $GITHUB_STEP_SUMMARY
