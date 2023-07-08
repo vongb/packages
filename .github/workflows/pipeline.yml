@@ -8,6 +8,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: yarn
+      - run: git fetch origin master --depth 2
       - name: Output affected projects
         id: affected
         run: ./.github/scripts/output-nx-affected.sh
