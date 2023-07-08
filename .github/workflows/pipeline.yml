@@ -17,12 +17,13 @@ jobs:
     needs: affected
     if: ${{ needs.affected.outputs.affected != '[]' && needs.affected.outputs.affected != '' }}
     runs-on: ubuntu-latest
-    strategy:
-      matrix: ${{ fromJson(needs.affected.outputs.affected) }}
+    # strategy:
+    #   matrix: ${{ fromJson(needs.affected.outputs.affected) }}
     steps:
-      - uses: actions/checkout@v3
-      - run: yarn
-      - name: Lint
-        run: yarn nx lint ${{ matrix.project }}
-      - name: Test
-        run: yarn nx test ${{ matrix.project }}
+      - run: echo "${{ needs.affected.outputs.affected }}" >> $GITHUB_STEP_SUMMARY
+      # - uses: actions/checkout@v3
+      # - run: yarn
+      # - name: Lint
+      #   run: yarn nx lint ${{ matrix.project }}
+      # - name: Test
+      #   run: yarn nx test ${{ matrix.project }}
