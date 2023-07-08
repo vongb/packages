@@ -1,11 +1,32 @@
 name: pipeline
 on: [push]
 jobs:
-  lint:
+  matrix:
     runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
       - uses: actions/checkout@v3
         with:
           node-version: '18'
       - run: yarn
-      - run: yarn nx show projects --affected
+      - name: Output affected projects
+        id: set-matrix
+        run: ./.github/scripts/output-nx-affected.sh
+        shell: bash
+
+  lint-and-test:
+    needs: matrix
+    strategy:
+      fail-fast: true
+      matrix: $${fromJson(needs.matrix.outputs.matrix)}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          node-version: '18'
+      - run: yarn
+      - name: Lint
+        run: yarn nx lint ${{ matrix.affected }}
+      - name: Test
+        run: yarn nx Test ${{ matrix.affected }}
+      
