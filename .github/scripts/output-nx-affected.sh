@@ -2,7 +2,9 @@
 
 set -eu
 
-AFFECTED_PROJECTS="$(yarn --silent nx show projects --affected)"
+BASE=$(if [ "$GITHUB_REF_NAME" = "master" ]; then echo "origin/master~1"; else echo "origin/master"; fi)
+
+AFFECTED_PROJECTS="$(yarn --silent nx show projects --affected --base=$BASE)"
 
 
 declare -a lines
@@ -25,4 +27,4 @@ done
 JSON="${JSON%,}]"
 
 echo "affected=$JSON" >> $GITHUB_OUTPUT
-echo "$JSON" >> $GITHUB_STEP_SUMMARY
+echo "BASE: $BASE affected: $JSON" >> $GITHUB_STEP_SUMMARY
