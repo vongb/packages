@@ -10,9 +10,6 @@ while IFS= read -r line; do
   lines+=("$line")
 done <<< "$AFFECTED_PROJECTS"
 
-JSON=""
-AFFECTED=false
-
 JSON="{\"project\": ["
 
 for line in "${lines[@]}"; do
@@ -20,15 +17,13 @@ for line in "${lines[@]}"; do
     continue;
   else
     echo $line
-    AFFECTED=true
     JSON+="\"$line\","
   fi
 done
 
 # Remove trailing comma
-JSON="${JSON%,}],\"affected\":$AFFECTED}"
+JSON="${JSON%,}]}"
 echo $JSON
-
 
 echo "matrix=$JSON" >> $GITHUB_OUTPUT
 echo "$JSON" >> $GITHUB_STEP_SUMMARY
