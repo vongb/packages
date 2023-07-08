@@ -17,6 +17,7 @@ jobs:
 
   lint-and-test:
     needs: matrix
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: true
       matrix: ${{ fromJson(needs.matrix.outputs.matrix) }}
