@@ -10,7 +10,7 @@ while IFS= read -r line; do
   lines+=("$line")
 done <<< "$AFFECTED_PROJECTS"
 
-JSON="{\"project\": ["
+JSON="{\"project\":["
 
 for line in "${lines[@]}"; do
   if [[ -z $line ]]; then

@@ -15,15 +15,14 @@ jobs:
 
   lint-and-test:
     needs: affected
-    if: ${{ needs.affected.outputs.affected != '[]' && needs.affected.outputs.affected != '' }}
+    if: ${{ needs.affected.outputs.affected != '{project:[]}' && needs.affected.outputs.affected != '' }}
     runs-on: ubuntu-latest
-    # strategy:
-    #   matrix: ${{ fromJson(needs.affected.outputs.affected) }}
+    strategy:
+      matrix: ${{ fromJson(needs.affected.outputs.affected) }}
     steps:
-      - run: echo "${{ needs.affected.outputs.affected }}" >> $GITHUB_STEP_SUMMARY
-      # - uses: actions/checkout@v3
-      # - run: yarn
-      # - name: Lint
-      #   run: yarn nx lint ${{ matrix.project }}
-      # - name: Test
-      #   run: yarn nx test ${{ matrix.project }}
+      - uses: actions/checkout@v3
+      - run: yarn
+      - name: Lint
+        run: yarn nx lint ${{ matrix.project }}
+      - name: Test
+        run: yarn nx test ${{ matrix.project }}
