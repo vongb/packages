@@ -20,11 +20,12 @@ jobs:
       affected: ${{ steps.verify.outputs.affected }}
     steps:
       - name: Check if matrix is empty
+        id: verify
         run: |
-          if [ ${#matrix[@]} -eq 0 ]; then
-            echo "affected=false" >> $GITHUB_OUTPUT
+          if [ "${{ matrix }}" = "[]" ]; then
+            echo "::set-output name=affected::false"
           else
-            echo "affected=true" >> $GITHUB_OUTPUT
+            echo "::set-output name=affected::true"
           fi
 
   lint-and-test:
@@ -33,12 +34,10 @@ jobs:
       - verify
     runs-on: ubuntu-latest
     strategy:
-      verify: ${{ needs.verify.outputs.affected }}
       matrix: ${{ fromJson(needs.matrix.outputs.matrix) }}
     steps:
       - uses: actions/checkout@v3
       - run: yarn
-      - if: verify.affected
+      - if: ${{ needs.verify.outputs.affected == 'true' }}
         name: Lint
         run: yarn nx lint ${{ matrix.project }}
-      
