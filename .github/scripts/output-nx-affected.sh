@@ -20,5 +20,5 @@ done
 # Remove trailing comma
 JSON="${JSON%,}]}"
 
-echo "matrix=JSON" >> $GITHUB_OUTPUT
+echo "::set-output matrix=JSON"
 echo "$STEP_SUMMARY" >> $GITHUB_STEP_SUMMARY
