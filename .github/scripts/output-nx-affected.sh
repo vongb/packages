@@ -10,15 +10,13 @@ while IFS= read -r line; do
 done <<< "$AFFECTED_PROJECTS"
 
 JSON="{\"affected\": ["
-STEP_SUMMARY="Affected projects:\n"
 
 for line in "${lines[@]}"; do
-  STEP_SUMMARY+=":package: $line\n"
   JSON+="\"$line\","
 done
 
 # Remove trailing comma
 JSON="${JSON%,}]}"
 
-echo "::set-output matrix=$JSON"
-echo "$STEP_SUMMARY" >> $GITHUB_STEP_SUMMARY
+echo "matrix=$JSON" >> $GITHUB_OUTPUT
+echo "$JSON" >> $GITHUB_STEP_SUMMARY
