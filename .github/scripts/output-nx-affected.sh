@@ -10,7 +10,8 @@ while IFS= read -r line; do
   lines+=("$line")
 done <<< "$AFFECTED_PROJECTS"
 
-JSON="{\"project\":["
+# JSON="{\"project\":["
+JSON="["
 
 for line in "${lines[@]}"; do
   if [[ -z $line ]]; then
@@ -22,7 +23,8 @@ for line in "${lines[@]}"; do
 done
 
 # Remove trailing comma
-JSON="${JSON%,}]}"
+# JSON="${JSON%,}]}"
+JSON="${JSON%,}]"
 
-echo "affected=$JSON"
+echo "affected=$JSON" >> $GITHUB_OUTPUT
 # echo "$JSON" >> $GITHUB_STEP_SUMMARY
