@@ -11,21 +11,24 @@ while IFS= read -r line; do
 done <<< "$AFFECTED_PROJECTS"
 
 JSON=""
+AFFECTED=false
 
-if [[ ${#lines} -eq 0 ]]; then
-  echo "No projects affect! 🤷‍♂️"
-  JSON="{\"affected\": false, \"project\": []}"
-else 
-  echo "Projects affected!"
-  JSON="{\"affected\": true, \"project\": ["
+JSON="{\"project\": ["
 
-  for line in "${lines[@]}"; do
+for line in "${lines[@]}"; do
+  if [[ -z $line ]]; then
+    continue;
+  else
+    echo $line
+    AFFECTED=true
     JSON+="\"$line\","
-  done
+  fi
+done
 
-  # Remove trailing comma
-  JSON="${JSON%,}]}"
-fi
+# Remove trailing comma
+JSON="${JSON%,}],\"affected\":$AFFECTED}"
+echo $JSON
+
 
 echo "matrix=$JSON" >> $GITHUB_OUTPUT
 echo "$JSON" >> $GITHUB_STEP_SUMMARY
