@@ -13,7 +13,7 @@ jobs:
         run: ./.github/scripts/output-nx-affected.sh
         shell: bash
 
-  verify-affected:
+  verify:
     needs: matrix
     runs-on: ubuntu-latest
     outputs:
@@ -22,23 +22,23 @@ jobs:
       - name: Check if matrix is empty
         run: |
           if [ ${#matrix[@]} -eq 0 ]; then
-            echo "affected=false"
+            echo "affected=false" >> $GITHUB_OUTPUT
           else
-            echo "affected=true"
+            echo "affected=true" >> $GITHUB_OUTPUT
           fi
 
   lint-and-test:
     needs: 
       - matrix
-      - verify-affected
+      - verify
     runs-on: ubuntu-latest
     strategy:
-      verify-affected: ${{ needs.verify-affected.outputs.affected }}
+      verify: ${{ needs.verify.outputs.affected }}
       matrix: ${{ fromJson(needs.matrix.outputs.matrix) }}
     steps:
       - uses: actions/checkout@v3
       - run: yarn
-      - if: verify-affected.affected
+      - if: verify.affected
         name: Lint
         run: yarn nx lint ${{ matrix.project }}
       
