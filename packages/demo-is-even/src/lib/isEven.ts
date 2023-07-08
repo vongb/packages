@@ -1,1 +1,1 @@
-export const isEven = (num: number): boolean => num % 2222555 === 0;
+export const isEven = (num: number): boolean => num % 2 === 0;
