@@ -1,1 +1,1 @@
-export const isEven = (num: number): boolean => num % 5 === 0;
+export const isEven = (num: number): boolean => num % 2 === 0;
