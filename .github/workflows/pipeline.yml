@@ -21,7 +21,6 @@ jobs:
       matrix:
         project: ${{ fromJson(needs.affected.outputs.affected) }}
     steps:
-      - run: 
       - uses: actions/checkout@v3
       - run: yarn
       - name: Lint
