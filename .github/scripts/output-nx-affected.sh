@@ -2,23 +2,23 @@
 
 set -eu
 
-affected-projects="$(yarn --silent nx show projects --affected)"
+AFFECTED_PROJECTS="$(yarn --silent nx show projects --affected)"
 
 declare -a lines
 while IFS= read -r line; do
   lines+=("$line")
-done <<< "$affected-projects"
+done <<< "$AFFECTED_PROJECTS"
 
-json="{\"affected\": ["
-step-summary="Affected projects:\n"
+JSON="{\"affected\": ["
+STEP_SUMMARY="Affected projects:\n"
 
 for line in "${lines[@]}"; do
-  step-summary+=":package: $line\n"
-  json+="\"$line\","
+  STEP_SUMMARY+=":package: $line\n"
+  JSON+="\"$line\","
 done
 
 # Remove trailing comma
-json="${json%,}]}"
+JSON="${JSON%,}]}"
 
 echo "matrix=JSON" >> $GITHUB_OUTPUT
-echo "$step-summary" >> $GITHUB_STEP_SUMMARY
+echo "$STEP_SUMMARY" >> $GITHUB_STEP_SUMMARY
