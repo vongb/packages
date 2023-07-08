@@ -18,8 +18,7 @@ jobs:
     if: ${{ needs.affected.outputs.affected != '[]' && needs.affected.outputs.affected != '' }}
     runs-on: ubuntu-latest
     strategy:
-      matrix: 
-        project: ${{ fromJson(needs.affected.outputs.affected) }}
+      matrix: ${{ fromJson(needs.affected.outputs.affected) }}
     steps:
       - uses: actions/checkout@v3
       - run: yarn
