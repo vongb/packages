@@ -14,10 +14,10 @@ JSON=""
 
 if [[ ${#lines} -eq 0 ]]; then
   echo "No projects affect! 🤷‍♂️"
-  JSON="{\"affected\": false, \"projects\": []}"
+  JSON="{\"affected\": false, \"project\": []}"
 else 
   echo "Projects affected!"
-  JSON="{\"affected\": true, \"projects\": ["
+  JSON="{\"affected\": true, \"project\": ["
 
   for line in "${lines[@]}"; do
     JSON+="\"$line\","

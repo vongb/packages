@@ -19,12 +19,13 @@ jobs:
     strategy:
       fail-fast: false
       matrix: ${{ fromJson(needs.matrix.outputs.matrix) }}
-    if: ${{ matrix.affected }}
     steps:
       - uses: actions/checkout@v3
       - run: yarn
-      - name: Lint
-        run: yarn nx lint ${{ matrix.projects }}
-      - name: Test
-        run: yarn nx Test ${{ matrix.projects }}
+      - if: ${{ matrix.affected == true }}
+        name: Lint
+        run: yarn nx lint ${{ matrix.project }}
+      - if: ${{ matrix.affected == true }}
+        name: Test
+        run: yarn nx Test ${{ matrix.project }}
       
