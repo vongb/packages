@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@elon/twitter": ["packages/twitter/src/index.ts"]
+      "@elon/twitter": ["packages/twitter/src/index.ts"],
+      "@zuck/threads": ["packages/threads/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
