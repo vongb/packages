@@ -5,5 +5,7 @@ export const postThread = (post: string) => {
     throw new Error('Please watch an ad to post more than 500 characters.');
   }
 
+  console.log('threddit');
+
   tweet(post);
 };
