@@ -1,1 +1,1 @@
-export * from './lib/twitter';
+export * from './lib/tweet';

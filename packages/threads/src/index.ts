@@ -1,1 +1,1 @@
-export * from './lib/threads';
+export * from './lib/postThread';
