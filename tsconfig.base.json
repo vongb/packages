@@ -14,11 +14,7 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {
-      "demo-consumer-two": ["packages/demo-consumer-two/src/index.ts"],
-      "demo-get-parity": ["packages/demo-get-parity/src/index.ts"],
-      "demo-is-even": ["packages/demo-is-even/src/index.ts"]
-    }
+    "paths": {}
   },
   "exclude": ["node_modules", "tmp"]
 }
